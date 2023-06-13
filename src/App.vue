@@ -1,19 +1,25 @@
 <script>
 import axios from "axios";
-import { store } from "./store";
+import CardProject from "./components/CardProject.vue";
 export default {
   data() {
     return {
-      store,
+      baseUrl: "http://localhost:8000",
+      projects: [],
     };
   },
-  mounted() {},
+  mounted() {
+    this.getProjects();
+  },
   methods: {
     getProjects() {
-      axios.get(store.baseUrl).then((resp) => {
-        store.projects = resp.data;
+      axios.get(`${this.baseUrl}/api/projects`).then((resp) => {
+        this.projects = resp.data.results;
       });
     },
+  },
+  components: {
+    CardProject,
   },
 };
 </script>
@@ -21,7 +27,11 @@ export default {
 <template>
   <div class="container">
     <h1>Lista dei Progetti</h1>
-    <div class="row row-cols-4 g-4"></div>
+    <div class="row row-cols-3 g-4">
+      <div class="col" v-for="project in projects" :key="project.id">
+        <CardProject :project="project" />
+      </div>
+    </div>
   </div>
 </template>
 
