@@ -1,4 +1,5 @@
 <script>
+import { store } from "../store";
 export default {
   name: "CardProjects",
   props: {
@@ -6,19 +7,20 @@ export default {
   },
   data() {
     return {
-      baseUrl: "http://localhost:8000",
+      store,
     };
+  },
+  computed: {
+    getImgurl() {
+      return this.store.baseUrl + "/storage/" + this.project.image;
+    },
   },
 };
 </script>
 
 <template>
   <div class="card h-100">
-    <img
-      v-if="project.image"
-      :src="`${baseUrl}/storage/${project.image}`"
-      alt=""
-    />
+    <img v-if="project.image" :src="getImgurl" alt="" />
     <div v-else>Nessuna immagine caricata</div>
     <div class="card-body">
       {{ project.title }}
