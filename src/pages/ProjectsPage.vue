@@ -2,6 +2,8 @@
 import axios from "axios";
 import { store } from "../store";
 import CardProject from "../components/CardProject.vue";
+import Pagination from "../components/Pagination.vue";
+
 export default {
   name: "ProjectsPage",
   data() {
@@ -39,6 +41,7 @@ export default {
   },
   components: {
     CardProject,
+    Pagination,
   },
 };
 </script>
@@ -52,41 +55,11 @@ export default {
           <CardProject :project="project" />
         </div>
       </div>
-      <nav class="m-4">
-        <ul class="pagination">
-          <li class="page-item" :class="{ disabled: currentPage === 1 }">
-            <a
-              @click.prevent="getProjects(currentPage - 1)"
-              class="page-link"
-              href="#"
-            >
-              Previous
-            </a>
-          </li>
-          <li
-            class="page-item"
-            v-for="pageNumber in lastPage"
-            :class="{ active: pageNumber === currentPage }"
-          >
-            <a
-              @click.prevent="getProjects(pageNumber)"
-              class="page-link"
-              href="#"
-            >
-              {{ pageNumber }}
-            </a>
-          </li>
-          <li class="page-item" :class="{ disabled: currentPage === lastPage }">
-            <a
-              @click.prevent="getProjects(currentPage + 1)"
-              class="page-link"
-              href="#"
-            >
-              Next
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <Pagination
+        @changePage="getProjects"
+        :currentPage="currentPage"
+        :lastPage="lastPage"
+      />
     </section>
     <section v-else>
       <div class="d-flex justify-content-center">
