@@ -43,17 +43,16 @@ export default {
 };
 </script>
 <template>
-  <h1>My ProjectsPage</h1>
-
   <div class="container">
     <section v-if="!load">
-      <h1>Lista dei Progetti</h1>
+      <h1>My ProjectsPage</h1>
+
       <div class="row row-cols-5 g-4">
-        <div class="col" v-for="project in projects">
+        <div class="col m-4" v-for="project in projects">
           <CardProject :project="project" />
         </div>
       </div>
-      <nav class="mt-4">
+      <nav class="m-4">
         <ul class="pagination">
           <li class="page-item" :class="{ disabled: currentPage === 1 }">
             <a
