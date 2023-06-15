@@ -47,8 +47,8 @@ export default {
 </script>
 <template>
   <div class="container">
-    <section v-if="!load">
-      <h1>My ProjectsPage</h1>
+    <section class="projects" v-if="!load">
+      <h1 class="m-4">My ProjectsPage</h1>
 
       <div class="row row-cols-5 g-4">
         <div class="col m-4" v-for="project in projects">
